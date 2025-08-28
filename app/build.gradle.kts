@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +18,23 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildFeatures {
+            buildConfig = true
+        }
+
+        val props = Properties().apply {
+            load(rootProject.file("local.properties").inputStream())
+        }
+        val apiKey = checkNotNull(props.getProperty("API_KEY")) {
+            "API_KEY is missing from local.properties"
+        }
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"$apiKey\""
+        )
     }
 
     buildTypes {
