@@ -1,6 +1,6 @@
 package com.coopersimpson.androidnews.presentation
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.coopersimpson.androidnews.components.NewsCard
 
 @Composable
 fun ListNewsScreen(modifier: Modifier = Modifier, vm: ListNewsScreenViewModel = hiltViewModel()) {
@@ -20,9 +21,9 @@ fun ListNewsScreen(modifier: Modifier = Modifier, vm: ListNewsScreenViewModel = 
     when {
         loading -> Text("Loading...", modifier)
         error != null -> Text("Error: $error", modifier)
-        else -> LazyColumn(modifier = modifier) {
+        else -> LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(articles) { a ->
-                Text(a.title ?: "Untitled", Modifier.padding(top = 16.dp))
+                NewsCard(a.title ?: "Untitled")
             }
         }
     }

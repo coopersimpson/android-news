@@ -7,6 +7,7 @@
 - Use hilt for dependency injection
 - Include unit tests and instrumented tests (optional)
 - Utilise MVVM architecture
+- Include different build variants for debugging/release etc.
 
 ## Resources
 API Endpoint:
