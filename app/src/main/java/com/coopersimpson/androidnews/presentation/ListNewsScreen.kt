@@ -23,6 +23,7 @@ import com.coopersimpson.androidnews.components.NewsCard
 @Composable
 fun ListNewsScreen(
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
     snackbarHostState: SnackbarHostState,
     vm: ListNewsScreenViewModel = hiltViewModel()
 ) {
@@ -52,7 +53,7 @@ fun ListNewsScreen(
                 LazyColumn(
                     modifier = modifier,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(12.dp)
+                    contentPadding = contentPadding
                 ) {
                     items(articles) { a ->
                         NewsCard(a.title ?: "Untitled")
