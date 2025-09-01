@@ -16,8 +16,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun NewsCard(title: String) {
+fun NewsCard(title: String, onClick: () -> Unit) {
     Card(
+        onClick = onClick,
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant),
         border = BorderStroke(1.dp, Color.Black),
         modifier = Modifier

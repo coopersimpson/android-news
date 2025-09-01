@@ -1,5 +1,6 @@
 package com.coopersimpson.androidnews.presentation
 
+import NewsList
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -82,16 +83,11 @@ fun ListNewsScreen(
             }
 
             else -> {
-                LazyColumn(
-                    modifier = modifier,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                NewsList(
+                    articles,
+                    modifier = Modifier.fillMaxSize(),
                     contentPadding = contentPadding
-                ) {
-                    items(articles) { a ->
-                        NewsCard(a.title ?: "Untitled")
-                    }
-                }
-
+                )
                 if (loading) {
                     Box(
                         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
