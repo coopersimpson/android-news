@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.coopersimpson.androidnews.components.RefreshButton
 import com.coopersimpson.androidnews.components.TopHeadingBar
@@ -41,13 +42,24 @@ class MainActivity : ComponentActivity() {
                 val showFab = error != null && articles.isEmpty()
 
                 val nav = rememberNavController()
+                val navBackStackEntry by nav.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { TopHeadingBar() },
                     floatingActionButton = {
                         AnimatedVisibility(visible = !showFab) {
-                            RefreshButton(onClick = { nav.navigate("random") })
+                            RefreshButton(
+                                onClick = {
+                                    if (currentRoute == "news") {
+                                        nav.navigate("random")
+                                    } else {
+                                        nav.navigate("news")
+                                    }
+                                },
+                                isOnRandom = currentRoute == "random"
+                            )
                         }
                     },
                     snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
