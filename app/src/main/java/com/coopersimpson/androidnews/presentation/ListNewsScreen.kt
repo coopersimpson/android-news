@@ -17,12 +17,11 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,11 +29,11 @@ fun ListNewsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     snackbarHostState: SnackbarHostState,
-    vm: ListNewsScreenViewModel = hiltViewModel()
+    vm: ListNewsScreenViewModel
 ) {
-    val articles by vm.articles.collectAsState()
-    val loading by vm.loading.collectAsState()
-    val error by vm.error.collectAsState()
+    val articles by vm.articles.collectAsStateWithLifecycle()
+    val loading by vm.loading.collectAsStateWithLifecycle()
+    val error by vm.error.collectAsStateWithLifecycle()
 
     // This triggers a snackbar whenever the value of error changes
     LaunchedEffect(error) {
