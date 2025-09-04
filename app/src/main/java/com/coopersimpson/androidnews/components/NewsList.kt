@@ -32,6 +32,7 @@ fun NewsList(
             NewsCard(
                 title = a.title ?: "Untitled",
                 date = a.pubDate ?: "-",
+                categories = a.category,
                 onClick = {
                     openUrl = a.link
                     openTitle = a.title
