@@ -1,4 +1,3 @@
-// Imports you'll likely need:
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +20,7 @@ fun NewsList(
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     var openUrl by rememberSaveable { mutableStateOf<String?>(null) }
+    var openTitle by rememberSaveable { mutableStateOf<String?>(null) }
 
     // List of NewsCard
     LazyColumn(
@@ -31,13 +31,18 @@ fun NewsList(
         items(articles) { a ->
             NewsCard(
                 a.title ?: "Untitled",
-                onClick = { a.link?.let { openUrl = it } } // open WebView
+                onClick = {
+                    openUrl = a.link
+                    openTitle = a.title
+                }
             )
         }
     }
-
-    // WebView dialog
-    openUrl?.let { url ->
-        CustomWebView(url = url, onDismiss = { openUrl = null })
+    if (openUrl != null) {
+        CustomWebView(
+            url = openUrl!!,
+            onDismiss = { openUrl = null; openTitle = null },
+            articleTitle = openTitle ?: "Untitled"
+        )
     }
 }

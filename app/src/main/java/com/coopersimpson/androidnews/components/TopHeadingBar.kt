@@ -7,10 +7,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopHeadingBar() {
+fun TopHeadingBar(articleTitle: String = "10 Random Articles") {
     TopAppBar(
         colors = topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -18,9 +19,10 @@ fun TopHeadingBar() {
         ),
         title = {
             Text(
-                "10 Random Articles",
+                text = articleTitle,
                 style = MaterialTheme.typography.titleLarge,
-                color = Color(0xFFFFFFFF)
+                color = Color(0xFFFFFFFF),
+                overflow = TextOverflow.Ellipsis
             )
         }
     )
