@@ -30,7 +30,8 @@ fun NewsList(
     ) {
         items(articles) { a ->
             NewsCard(
-                a.title ?: "Untitled",
+                title = a.title ?: "Untitled",
+                date = a.pubDate ?: "-",
                 onClick = {
                     openUrl = a.link
                     openTitle = a.title

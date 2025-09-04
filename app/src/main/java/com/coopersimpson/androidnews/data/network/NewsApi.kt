@@ -9,7 +9,8 @@ data class NewsResponse(
 
 data class Article(
     val title: String? = null,
-    val link: String? = null
+    val link: String? = null,
+    val pubDate: String? = null
 )
 
 interface NewsApi {
