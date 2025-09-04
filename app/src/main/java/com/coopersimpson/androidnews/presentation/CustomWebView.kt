@@ -27,7 +27,7 @@ fun CustomWebView(
 ) {
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(usePlatformDefaultWidth = false) // Full screen WebView
+        properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Card(
             modifier = Modifier
@@ -37,7 +37,11 @@ fun CustomWebView(
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                TopHeadingBar(articleTitle ?: "Untitled")
+                TopHeadingBar(
+                    articleTitle = articleTitle ?: "Untitled",
+                    onDismiss = onDismiss,
+                    showCloseActionButton = true
+                )
                 AndroidView(
                     modifier = Modifier.fillMaxSize(),
                     factory = { ctx ->
