@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +32,8 @@ fun RandomOptionsScreen(
     var selectedLanguage by rememberSaveable { mutableStateOf(languages.first()) }
     var selectedCategory by rememberSaveable { mutableStateOf(categories.first()) }
 
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -37,6 +42,13 @@ fun RandomOptionsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = contentPadding,
     ) {
+        item {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search articles") },
+            )
+        }
         item {
             LabeledDropdown(
                 label = "Country",
