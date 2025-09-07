@@ -18,6 +18,8 @@ interface NewsApi {
     @GET("latest") // latest is the endpoint https://newsdata.io/api/1/ + latest
     suspend fun latest(
         @Query("q") q: String? = null,
-        @Query("language") language: String? = "en"
+        @Query("language") language: String? = "en", // Default to english articles
+        @Query("category") category: String? = null,
+        @Query("country") country: String? = null
     ): NewsResponse
 }

@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,20 +16,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.coopersimpson.androidnews.components.LabeledDropdown
+import com.coopersimpson.androidnews.data.network.ApiMappings
+import com.coopersimpson.androidnews.data.network.QueryParams
 
 @Composable
 fun RandomOptionsScreen(
-    modifier: Modifier = Modifier, contentPadding: PaddingValues = PaddingValues()
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
+    onParamsChange: (QueryParams) -> Unit
 ) {
-    val countries = listOf("Australia", "New Zealand")
-    val languages = listOf("English", "Mandarin")
-    val categories = listOf("General", "Technology")
-
-    var selectedCountry by rememberSaveable { mutableStateOf(countries.first()) }
-    var selectedLanguage by rememberSaveable { mutableStateOf(languages.first()) }
-    var selectedCategory by rememberSaveable { mutableStateOf(categories.first()) }
-
     var searchQuery by rememberSaveable { mutableStateOf("") }
+    var selectedCountry by rememberSaveable { mutableStateOf(ApiMappings.countryLabels.first()) }
+    var selectedLanguage by rememberSaveable { mutableStateOf(ApiMappings.languageLabels.first()) }
+    var selectedCategory by rememberSaveable { mutableStateOf(ApiMappings.categoryLabels.first()) }
+
+    fun pushParams() = onParamsChange(
+        QueryParams(
+            q = searchQuery.ifBlank { null },
+            language = ApiMappings.languageCode(selectedLanguage),
+            category = ApiMappings.categoryCode(selectedCategory),
+            country = ApiMappings.countryCode(selectedCountry)
+        )
+    )
 
     LazyColumn(
         modifier = modifier
@@ -45,38 +50,33 @@ fun RandomOptionsScreen(
         item {
             OutlinedTextField(
                 value = searchQuery,
-                onValueChange = { searchQuery = it },
+                onValueChange = { searchQuery = it; pushParams() },
                 label = { Text("Search articles") },
             )
         }
         item {
             LabeledDropdown(
                 label = "Country",
-                options = countries,
+                options = ApiMappings.countryLabels,
                 selected = selectedCountry,
-                onSelected = { selectedCountry = it }
+                onSelected = { selectedCountry = it; pushParams() }
             )
         }
         item {
             LabeledDropdown(
                 label = "Language",
-                options = languages,
+                options = ApiMappings.languageLabels,
                 selected = selectedLanguage,
-                onSelected = { selectedLanguage = it }
+                onSelected = { selectedLanguage = it; pushParams() }
             )
         }
         item {
             LabeledDropdown(
                 label = "Category",
-                options = categories,
+                options = ApiMappings.categoryLabels,
                 selected = selectedCategory,
-                onSelected = { selectedCategory = it }
+                onSelected = { selectedCategory = it; pushParams() }
             )
-        }
-        item {
-            Button(onClick = { }) {
-                Text("I'm feeling lucky!")
-            }
         }
     }
 }
