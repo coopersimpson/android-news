@@ -52,6 +52,7 @@ fun ListNewsScreen(
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
 
+            // This block will only run if we have no cached articles and are offline
             error != null && articles.isEmpty() -> {
                 PullToRefreshBox(
                     isRefreshing = false,
@@ -83,22 +84,6 @@ fun ListNewsScreen(
                 }
             }
 
-            error == null && articles.isEmpty() -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = contentPadding
-                ) {
-                    item {
-                        Box(
-                            modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text("Could not find any articles.\nTry different parameters.")
-                        }
-                    }
-                }
-            }
-
             else -> {
                 NewsList(
                     articles,
@@ -113,7 +98,6 @@ fun ListNewsScreen(
                     }
                 }
             }
-
         }
     }
 }

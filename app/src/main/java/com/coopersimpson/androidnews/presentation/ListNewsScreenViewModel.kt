@@ -36,12 +36,23 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
             _loading.value = true
             _error.value = null
             try {
-                _articles.value = repo.fetchLatestCached(
+                val result = repo.fetchLatestCached(
                     q = query,
                     language = language,
                     category = category,
                     country = country
                 )
+
+                if (result.fromCache && result.error != null) {
+                    _error.value = "You're offline. Reconnect to load more articles"
+                } else if (result.articles.isEmpty()) {
+                    _error.value = "No articles found for this filter."
+                }
+
+                if (result.articles.isNotEmpty()) {
+                    _articles.value = result.articles
+                }
+
             } catch (t: Throwable) {
                 _error.value = t.message ?: "Unknown error"
             } finally {

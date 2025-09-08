@@ -9,26 +9,36 @@ class ArticleRepository @Inject constructor(
     private val api: NewsApi,
     private val dao: ArticleDao
 ) {
+    // Type to capture fetched result
+    data class FetchResult(
+        val articles: List<Article>,
+        val fromCache: Boolean,
+        val error: Throwable? = null
+    )
+
     suspend fun fetchLatestCached(
         q: String? = null,
         language: String? = "en", // Default to english articles
         category: String? = null,
         country: String? = null
-    ): List<Article> {
+    ): FetchResult {
         return try {
-            // Network first
-            val res = api.latest(q = q, language = language, category = category, country = country)
+            val res = api.latest(q, language, category, country)
             val latest = res.results.take(10)
 
-            // Replace old cache if we can load from API (clear and then insert)
-            val now = System.currentTimeMillis()
-            dao.clear()
-            dao.upsertAll(latest.map { it.toEntity(now) })
+            // Only replace cache if the latest API call is not empty
+            if (latest.isNotEmpty()) {
+                val now = System.currentTimeMillis()
+                dao.clear()
+                dao.upsertAll(latest.map { it.toEntity(now) })
+            }
 
-            latest
-        } catch (_: Throwable) {
-            // Offline/error, therefore load the cached articles from DB and convert/return them
-            dao.getAll().map { it.toDomain() }
+            FetchResult(articles = latest, fromCache = false, error = null)
+
+        } catch (t: Throwable) {
+            val cached = dao.getAll().map { it.toDomain() }
+
+            FetchResult(articles = cached, fromCache = true, error = t)
         }
     }
 }
