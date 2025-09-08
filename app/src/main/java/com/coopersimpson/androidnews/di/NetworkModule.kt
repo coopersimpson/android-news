@@ -1,6 +1,7 @@
-package com.coopersimpson.androidnews.data.network
+package com.coopersimpson.androidnews.di
 
 import com.coopersimpson.androidnews.BuildConfig
+import com.coopersimpson.androidnews.data.network.NewsApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

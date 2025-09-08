@@ -36,7 +36,7 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
             _loading.value = true
             _error.value = null
             try {
-                _articles.value = repo.fetchArticles(
+                _articles.value = repo.fetchLatestCached(
                     q = query,
                     language = language,
                     category = category,
