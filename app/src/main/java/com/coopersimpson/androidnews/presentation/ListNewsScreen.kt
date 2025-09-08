@@ -83,6 +83,22 @@ fun ListNewsScreen(
                 }
             }
 
+            error == null && articles.isEmpty() -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = contentPadding
+                ) {
+                    item {
+                        Box(
+                            modifier = Modifier.fillParentMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Could not find any articles.\nTry different parameters.")
+                        }
+                    }
+                }
+            }
+
             else -> {
                 NewsList(
                     articles,
