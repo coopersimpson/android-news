@@ -1,18 +1,26 @@
 # Android News App
-## Task
-- Use API endpoint to display a list of articles in a LazyColumn (retrofit2 / http3)
-- Utilise material3 compose components
-- use appropriate API secret management
-- Tapping an article should display the article in WebView
-- Include caching for API data (room)
-- Use hilt for dependency injection
-- Include unit tests and instrumented tests (optional)
-- Utilise MVVM architecture
-- Include different build variants for debugging/release etc.
+Simple app that loads 10 articles from an API, user has options to configure different parameters to load additional articles.
 
 ## Architecture overview
+This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) architectural pattern.
 
 ## Libraries used and rationale
+- [Jetpack Compose](https://developer.android.com/compose) with [material3](https://m3.material.io/develop/android/jetpack-compose) components
+  - Modern toolkit for building native UI on Android
+  - Used for this app to implement best and modern practice, material3 components provide easy to use and clean interfaces out of the box
+- [hilt/dagger](https://dagger.dev/hilt/)
+  - Dependency injection library for Android built on top of Dagger
+  - Allows for simplified way to provide and manage dependencies in the app, works automatically with ViewModels in a lifecycle-aware and test-friendly way
+- [http3/retrofit2](https://square.github.io/retrofit/)
+  - HTTP client for Android
+  - Used to consume the newsdata API and network logging
+- [Room](https://developer.android.com/training/data-storage/room)
+  - Persistence library that provides abstraction layer over SQLite
+  - Used for caching article data
+  - A bit overkill for the needs of this project, better off with [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences) (legacy) or [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) (jetpack replacement for SharedPreferences)
+- [coil](https://coil-kt.github.io/coil/)
+  - Easy to use image loading library, loads asynchronously and can cache images
+  - Used for asynchronously loading and displaying article images from the API
 
 ## How to build
 - Clone the repo `git clone git@github.com:coopersimpson/android-news.git`
