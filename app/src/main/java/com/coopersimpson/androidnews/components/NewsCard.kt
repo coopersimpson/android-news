@@ -3,9 +3,11 @@ package com.coopersimpson.androidnews.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +29,7 @@ fun NewsCard(
     date: String,
     categories: List<String>,
     countries: List<String>,
+    imageUrl: String,
     onClick: () -> Unit
 ) {
     Card(
@@ -37,17 +40,25 @@ fun NewsCard(
             .fillMaxSize()
             .padding(horizontal = 8.dp)
     ) {
-        Column {
-            Text(
-                text = title,
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Title row with image thumbnail
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                style = MaterialTheme.typography.titleLarge,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-            )
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ArticleImage(imageUrl = imageUrl)
+                Spacer(Modifier.width(12.dp))
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 3,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            // Article metadata
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -71,7 +82,7 @@ fun NewsCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = ApiMappings.countryEmoji(countries.first()),
+                    text = ApiMappings.countryEmoji(countries.firstOrNull()),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.End,
@@ -91,5 +102,6 @@ fun NewsCardPreview() {
         "2025-09-03 02:42:39",
         listOf("Tech", "Top"),
         listOf("Australia"),
+        "",
         {})
 }

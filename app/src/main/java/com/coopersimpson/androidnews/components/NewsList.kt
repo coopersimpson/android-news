@@ -34,6 +34,7 @@ fun NewsList(
                 date = a.pubDate ?: "-",
                 categories = a.category,
                 countries = a.country,
+                imageUrl = a.image_url ?: "",
                 onClick = {
                     openUrl = a.link
                     openTitle = a.title
