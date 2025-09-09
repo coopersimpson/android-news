@@ -18,10 +18,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.coopersimpson.androidnews.data.network.ApiMappings
 import com.coopersimpson.androidnews.utils.convertDate
 
 @Composable
-fun NewsCard(title: String, date: String, categories: List<String>, onClick: () -> Unit) {
+fun NewsCard(
+    title: String,
+    date: String,
+    categories: List<String>,
+    countries: List<String>,
+    onClick: () -> Unit
+) {
     Card(
         onClick = onClick,
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant),
@@ -38,7 +45,8 @@ fun NewsCard(title: String, date: String, categories: List<String>, onClick: () 
                     .padding(8.dp),
                 style = MaterialTheme.typography.titleLarge,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                maxLines = 3,
             )
             Row(
                 modifier = Modifier
@@ -58,6 +66,14 @@ fun NewsCard(title: String, date: String, categories: List<String>, onClick: () 
                     text = categories.joinToString(" | "),
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = ApiMappings.countryEmoji(countries.first()),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.weight(1f),
                     textAlign = TextAlign.End,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -70,5 +86,10 @@ fun NewsCard(title: String, date: String, categories: List<String>, onClick: () 
 @Preview
 @Composable
 fun NewsCardPreview() {
-    NewsCard("This is an article title", "2025-09-03 02:42:39", listOf("Tech", "Top"), {})
+    NewsCard(
+        "This is an article title article title article title article title article titleThis is an article title article title article title article title article title",
+        "2025-09-03 02:42:39",
+        listOf("Tech", "Top"),
+        listOf("Australia"),
+        {})
 }

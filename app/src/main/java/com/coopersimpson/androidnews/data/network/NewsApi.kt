@@ -11,7 +11,8 @@ data class Article(
     val title: String? = null,
     val link: String? = null,
     val pubDate: String? = null,
-    val category: List<String> = emptyList()
+    val category: List<String> = emptyList(),
+    val country: List<String> = emptyList()
 )
 
 interface NewsApi {

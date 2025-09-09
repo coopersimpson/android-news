@@ -33,6 +33,7 @@ fun NewsList(
                 title = a.title ?: "Untitled",
                 date = a.pubDate ?: "-",
                 categories = a.category,
+                countries = a.country,
                 onClick = {
                     openUrl = a.link
                     openTitle = a.title

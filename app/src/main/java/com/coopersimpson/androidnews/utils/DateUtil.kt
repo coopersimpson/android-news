@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 
 fun convertDate(input: String): String {
     val apiFormat = "yyyy-MM-dd HH:mm:ss"
-    val desiredFormat = "EEE, MMM d, h:mm a"
+    val desiredFormat = "MMM d, h:mm a"
 
     val parser = SimpleDateFormat(apiFormat)
     val printer = SimpleDateFormat(desiredFormat)
