@@ -9,5 +9,6 @@ data class ArticleEntity(
     val title: String? = null,
     val pubDate: String? = null,
     val categories: List<String> = emptyList(),
+    val imageUrl: String?,
     val fetchedAt: Long
 )

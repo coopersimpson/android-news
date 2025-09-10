@@ -48,7 +48,7 @@ fun NewsCard(
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ArticleImage(imageUrl = imageUrl)
+                ArticleImage(imageUrl = imageUrl.ifBlank { null })
                 Spacer(Modifier.width(12.dp))
                 Text(
                     text = title,

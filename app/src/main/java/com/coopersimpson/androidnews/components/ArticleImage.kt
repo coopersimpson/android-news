@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 
 @Composable
 fun ArticleImage(imageUrl: String?, modifier: Modifier = Modifier) {
@@ -20,6 +20,7 @@ fun ArticleImage(imageUrl: String?, modifier: Modifier = Modifier) {
         contentDescription = null,
         placeholder = rememberVectorPainter(Icons.Filled.Refresh),
         error = rememberVectorPainter(Icons.Filled.Close),
+        fallback = rememberVectorPainter(Icons.Filled.Close),
         contentScale = ContentScale.Crop,
         modifier = modifier
             .size(72.dp)

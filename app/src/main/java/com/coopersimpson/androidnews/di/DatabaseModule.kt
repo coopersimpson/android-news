@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.coopersimpson.androidnews.data.db.AppDatabase
 import com.coopersimpson.androidnews.data.db.ArticleDao
+import com.coopersimpson.androidnews.data.db.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,7 @@ object DatabaseModule {
     @Singleton
     fun provideDb(@ApplicationContext ctx: Context): AppDatabase =
         Room.databaseBuilder(ctx, AppDatabase::class.java, "androidnews.db")
-            .fallbackToDestructiveMigration() // ignore migrations, this just drops the DB and starts fresh
+            .addMigrations(MIGRATION_1_2)
             .build()
 
     @Provides

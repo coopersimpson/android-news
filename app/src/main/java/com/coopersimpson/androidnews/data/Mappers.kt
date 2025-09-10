@@ -9,6 +9,7 @@ fun Article.toEntity(now: Long): ArticleEntity = ArticleEntity(
     link = link ?: UUID.randomUUID().toString(), // fallback if API omits link
     pubDate = pubDate,
     categories = category,
+    imageUrl = image_url,
     fetchedAt = now
 )
 
@@ -16,5 +17,6 @@ fun ArticleEntity.toDomain(): Article = Article(
     title = title,
     link = link,
     pubDate = pubDate,
-    category = categories
+    category = categories,
+    image_url = imageUrl
 )
