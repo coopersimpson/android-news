@@ -2,25 +2,23 @@ package com.coopersimpson.androidnews.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.coopersimpson.androidnews.R
 
 @Composable
 fun ArticleImage(imageUrl: String?, modifier: Modifier = Modifier) {
     AsyncImage(
-        model = imageUrl,
+        model = imageUrl ?: R.drawable.broken_image,
         contentDescription = null,
-        placeholder = rememberVectorPainter(Icons.Filled.Refresh),
-        error = rememberVectorPainter(Icons.Filled.Close),
-        fallback = rememberVectorPainter(Icons.Filled.Close),
+        placeholder = painterResource(R.drawable.image_pending),
+        error = painterResource(R.drawable.broken_image),
+        fallback = painterResource(R.drawable.broken_image),
         contentScale = ContentScale.Crop,
         modifier = modifier
             .size(72.dp)
