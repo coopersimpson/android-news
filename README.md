@@ -20,7 +20,7 @@ This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Mo
   - A bit overkill for the needs of this project, better off with [SharedPreferences](https://developer.android.com/training/data-storage/shared-preferences) (legacy) or [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) (jetpack replacement for SharedPreferences)
 - [coil](https://coil-kt.github.io/coil/)
   - Easy to use image loading library, loads asynchronously and can cache images
-  - Used for asynchronously loading and displaying article images from the API
+  - Used for displaying article images sourced from the API. Supports caching, debug logging and asynchronous loading
 
 ## How to build
 - Clone the repo `git clone git@github.com:coopersimpson/android-news.git`
