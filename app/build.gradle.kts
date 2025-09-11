@@ -42,10 +42,23 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            isDebuggable = true
+
+            // Don't enable optimisation for debug (faster build times and better stacktraces)
             isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        release {
+            isDebuggable = false
+
+            // Use Google's R8 to optimise our release build
+            isMinifyEnabled = true // Enable code-related optimisation
+            isShrinkResources = true // Enable resource shinking (remove unused resources)
             proguardFiles(
+                // Default rules from Android SDK, can also use "proguard-android.txt" instead
                 getDefaultProguardFile("proguard-android-optimize.txt"),
+                // Define extra rules on top of your project with this file
                 "proguard-rules.pro"
             )
         }

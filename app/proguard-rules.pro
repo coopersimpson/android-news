@@ -12,6 +12,10 @@
 #   public *;
 #}
 
+# This line specifies that everything inside network package is not touched by R8
+# API calls are broken without this...
+-keep class com.coopersimpson.androidnews.data.network.** { *; }
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
