@@ -19,6 +19,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        signingConfig = signingConfigs.getByName("debug")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildFeatures {
@@ -79,7 +81,7 @@ dependencies {
 
     // OkHttp
     implementation(libs.okhttp)
-    debugImplementation(libs.okhttp.logging)
+    implementation(libs.okhttp.logging)
 
     // viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

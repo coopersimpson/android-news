@@ -28,7 +28,7 @@ class MyApp : Application(), SingletonImageLoader.Factory {
                     .maxSizePercent(0.02)
                     .build()
             }
-            .logger(DebugLogger()) // TODO: Enables debug logging, remove this for release build
+            .logger(if (BuildConfig.DEBUG) DebugLogger() else null) // Enable coil logging for debug build only
             .build()
     }
 }
