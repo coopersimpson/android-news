@@ -138,4 +138,7 @@ dependencies {
     // These dependencies only run in the debug version of the app
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Leak canary to detect memory leaks (activate in debug build type only)
+    debugImplementation(libs.leakcanary.android)
 }
