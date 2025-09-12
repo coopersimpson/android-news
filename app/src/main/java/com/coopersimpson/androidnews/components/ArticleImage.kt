@@ -16,7 +16,7 @@ fun ArticleImage(imageUrl: String?, modifier: Modifier = Modifier) {
     AsyncImage(
         model = imageUrl ?: R.drawable.broken_image,
         contentDescription = null,
-        placeholder = painterResource(R.drawable.image_pending),
+        placeholder = painterResource(R.drawable.broken_image),
         error = painterResource(R.drawable.broken_image),
         fallback = painterResource(R.drawable.broken_image),
         contentScale = ContentScale.Crop,
