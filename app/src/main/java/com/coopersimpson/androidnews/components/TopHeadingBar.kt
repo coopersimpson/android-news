@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopHeadingBar(
-    articleTitle: String = "10 Random Articles",
+    articleTitle: String = "Android News",
     onDismiss: () -> Unit = { },
     showCloseActionButton: Boolean = false
 ) {
