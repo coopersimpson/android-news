@@ -63,6 +63,18 @@ android {
             )
         }
     }
+
+    flavorDimensions += "app"
+    productFlavors {
+        create("develop") {
+            dimension = "app"
+            versionNameSuffix = "-dev"
+        }
+        create("prod") {
+            dimension = "app"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

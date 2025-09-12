@@ -10,7 +10,7 @@ This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Mo
   - Used for this app to implement best and modern practice, material3 components provide easy to use and clean interfaces out of the box
 - [Gradle](https://developer.android.com/build/gradle-build-overview)
   - Build tool, transforms our source code into an executable application
-  - Used to build our application, and manage buildVariants and productFlavors
+  - Used to build our application, and manage buildVariants and productFlavors. The develop productFlavor in this app includes a button to purge our Room DB cache. 
 - [hilt/dagger](https://dagger.dev/hilt/)
   - Dependency injection library for Android built on top of Dagger
   - Allows for simplified way to provide and manage dependencies in the app, works automatically with ViewModels in a lifecycle-aware and test-friendly way

@@ -41,4 +41,8 @@ class ArticleRepository @Inject constructor(
             FetchResult(articles = cached, fromCache = true, error = t)
         }
     }
+
+    suspend fun clearRoomCache() {
+        dao.clear()
+    }
 }

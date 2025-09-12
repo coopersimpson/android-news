@@ -88,7 +88,8 @@ fun ListNewsScreen(
                 NewsList(
                     articles,
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = contentPadding
+                    contentPadding = contentPadding,
+                    vm = vm
                 )
                 if (loading) {
                     Box(

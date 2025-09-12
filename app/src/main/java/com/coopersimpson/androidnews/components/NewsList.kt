@@ -9,15 +9,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.coopersimpson.androidnews.components.DebugMenu
 import com.coopersimpson.androidnews.components.NewsCard
 import com.coopersimpson.androidnews.data.network.Article
 import com.coopersimpson.androidnews.presentation.CustomWebView
+import com.coopersimpson.androidnews.presentation.ListNewsScreenViewModel
 
 @Composable
 fun NewsList(
     articles: List<Article>,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp)
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    vm: ListNewsScreenViewModel
 ) {
     var openUrl by rememberSaveable { mutableStateOf<String?>(null) }
     var openTitle by rememberSaveable { mutableStateOf<String?>(null) }
@@ -40,6 +43,10 @@ fun NewsList(
                     openTitle = a.title
                 }
             )
+        }
+        item {
+            // Include a debug menu for develop productFlavor
+            DebugMenu(vm)
         }
     }
     if (openUrl != null) {

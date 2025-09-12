@@ -60,4 +60,13 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
             }
         }
     }
+
+    fun clearRoomCache() {
+        viewModelScope.launch {
+            // Clear the Room db cache
+            repo.clearRoomCache()
+            // Clear out the article VM
+            _articles.value = emptyList()
+        }
+    }
 }
