@@ -1,6 +1,7 @@
 package com.coopersimpson.androidnews.presentation
 
 import android.graphics.Bitmap
+import android.webkit.CookieManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -64,6 +65,12 @@ fun CustomWebView(
                         factory = {
                             WebView(ctx).apply {
                                 settings.javaScriptEnabled = true
+                                settings.domStorageEnabled = true
+                                settings.databaseEnabled = true
+                                settings.loadsImagesAutomatically = true
+
+                                CookieManager.getInstance().setAcceptCookie(true)
+
                                 webViewClient = object : WebViewClient() {
                                     override fun onPageStarted(
                                         view: WebView?,
