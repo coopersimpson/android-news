@@ -184,8 +184,15 @@ object ApiMappings {
     )
 
     val countryLabels: List<String> = listOf("Any") + countryMap.keys.toList()
+    // Map label to code "Australia -> au"
     fun countryCode(label: String): String? =
         if (label == "Any") null else countryMap[label]
+    // Reverse map "au -> Australia"
+    fun countryLabel(code: String?): String =
+        when {
+            code == null -> "Any"
+            else -> countryMap.entries.find { it.value == code }?.key ?: code
+        }
 
     val languageMap = mapOf(
         "English" to "en",
@@ -276,6 +283,11 @@ object ApiMappings {
     val languageLabels: List<String> = languageMap.keys.toList()
     fun languageCode(label: String): String? =
         languageMap[label]
+    fun languageLabel(code: String?): String =
+        when {
+            code == null -> "-"
+            else -> languageMap.entries.find { it.value == code }?.key ?: code
+        }
 
     val categoryMap = mapOf(
         "Business" to "business",
@@ -488,4 +500,9 @@ object ApiMappings {
             ?.lowercase()
             ?.let { countryEmojiMap[it] }
             ?: "🌍" // fallback to world if country not found in map
+    fun categoryLabel(code: String?): String =
+        when {
+            code == null -> "All"
+            else -> categoryMap.entries.find { it.value == code }?.key ?: code
+        }
 }
