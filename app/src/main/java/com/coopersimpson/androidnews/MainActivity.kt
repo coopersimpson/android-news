@@ -84,6 +84,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = innerPadding,
                                 snackbarHostState = snackbarHostState,
+                                latestParams = latestParams,
                                 vm = vm
                             )
                         }

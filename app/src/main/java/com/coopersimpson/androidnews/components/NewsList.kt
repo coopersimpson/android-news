@@ -9,9 +9,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coopersimpson.androidnews.components.DebugMenu
 import com.coopersimpson.androidnews.components.NewsCard
+import com.coopersimpson.androidnews.components.QueryParamsRow
 import com.coopersimpson.androidnews.data.network.Article
+import com.coopersimpson.androidnews.data.network.QueryParams
 import com.coopersimpson.androidnews.presentation.CustomWebView
 import com.coopersimpson.androidnews.presentation.ListNewsScreenViewModel
 
@@ -20,10 +23,13 @@ fun NewsList(
     articles: List<Article>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    latestParams: QueryParams,
     vm: ListNewsScreenViewModel
 ) {
     var openUrl by rememberSaveable { mutableStateOf<String?>(null) }
     var openTitle by rememberSaveable { mutableStateOf<String?>(null) }
+
+    val showHeader by vm.showQueryParams.collectAsStateWithLifecycle()
 
     // List of NewsCard
     LazyColumn(
@@ -31,6 +37,10 @@ fun NewsList(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = contentPadding
     ) {
+        if (showHeader) {
+            item { QueryParamsRow(latestParams) }
+        }
+
         items(articles) { a ->
             NewsCard(
                 title = a.title ?: "Untitled",

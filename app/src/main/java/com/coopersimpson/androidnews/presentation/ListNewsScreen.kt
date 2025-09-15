@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.coopersimpson.androidnews.data.network.QueryParams
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,6 +30,7 @@ fun ListNewsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     snackbarHostState: SnackbarHostState,
+    latestParams: QueryParams,
     vm: ListNewsScreenViewModel
 ) {
     val articles by vm.articles.collectAsStateWithLifecycle()
@@ -89,6 +91,7 @@ fun ListNewsScreen(
                     articles,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = contentPadding,
+                    latestParams = latestParams,
                     vm = vm
                 )
                 if (loading) {

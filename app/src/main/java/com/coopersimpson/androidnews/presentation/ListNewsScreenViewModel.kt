@@ -22,6 +22,9 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
+    private val _showQueryParams = MutableStateFlow(false)
+    val showQueryParams: StateFlow<Boolean> = _showQueryParams
+
     init {
         loadNews()
     }
@@ -45,12 +48,19 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
 
                 if (result.fromCache && result.error != null) {
                     _error.value = "You're offline. Reconnect to load more articles"
+                    _showQueryParams.value = false
                 } else if (result.articles.isEmpty()) {
                     _error.value = "No articles found for this filter."
+                    _showQueryParams.value = false
                 }
 
                 if (result.articles.isNotEmpty()) {
                     _articles.value = result.articles
+                    _showQueryParams.value = true
+                    // Hide the query params if we are offline
+                    if (result.fromCache && result.error != null) {
+                        _showQueryParams.value = false
+                    }
                 }
 
             } catch (t: Throwable) {
