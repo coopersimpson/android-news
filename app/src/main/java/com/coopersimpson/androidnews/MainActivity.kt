@@ -10,9 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -22,7 +20,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.coopersimpson.androidnews.components.RefreshButton
 import com.coopersimpson.androidnews.components.TopHeadingBar
-import com.coopersimpson.androidnews.data.network.QueryParams
 import com.coopersimpson.androidnews.presentation.ListNewsScreen
 import com.coopersimpson.androidnews.presentation.ListNewsScreenViewModel
 import com.coopersimpson.androidnews.presentation.RandomOptionsScreen
@@ -42,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 val articles by vm.articles.collectAsStateWithLifecycle()
                 val error by vm.error.collectAsStateWithLifecycle()
 
-                var latestParams by remember { mutableStateOf(QueryParams()) }
+                val params = vm.queryParams.collectAsStateWithLifecycle().value
 
                 val showFab = error != null && articles.isEmpty()
 
@@ -61,10 +58,10 @@ class MainActivity : ComponentActivity() {
                                         nav.navigate("random")
                                     } else {
                                         vm.loadNews(
-                                            query = latestParams.q,
-                                            language = latestParams.language,
-                                            category = latestParams.category,
-                                            country = latestParams.country
+                                            query = params.q,
+                                            language = params.language,
+                                            category = params.category,
+                                            country = params.country
                                         )
                                         nav.popBackStack() // Prefer .popBackStack over .navigate to preserve state of previous screen
                                     }
@@ -84,7 +81,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = innerPadding,
                                 snackbarHostState = snackbarHostState,
-                                latestParams = latestParams,
+                                latestParams = params,
                                 vm = vm
                             )
                         }
@@ -92,7 +89,7 @@ class MainActivity : ComponentActivity() {
                             RandomOptionsScreen(
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = innerPadding,
-                                onParamsChange = { latestParams = it }
+                                vm = vm
                             )
                         }
                     }

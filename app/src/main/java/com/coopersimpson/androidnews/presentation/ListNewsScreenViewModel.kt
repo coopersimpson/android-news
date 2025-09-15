@@ -3,7 +3,9 @@ package com.coopersimpson.androidnews.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coopersimpson.androidnews.data.ArticleRepository
+import com.coopersimpson.androidnews.data.network.ApiMappings
 import com.coopersimpson.androidnews.data.network.Article
+import com.coopersimpson.androidnews.data.network.QueryParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +26,16 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
 
     private val _showQueryParams = MutableStateFlow(false)
     val showQueryParams: StateFlow<Boolean> = _showQueryParams
+
+    private val _queryParams = MutableStateFlow(QueryParams(language = "en"))
+    val queryParams: StateFlow<QueryParams> = _queryParams
+
+    val selectedCountryLabel =
+        MutableStateFlow(ApiMappings.countryLabel(_queryParams.value.country))
+    val selectedLanguageLabel =
+        MutableStateFlow(ApiMappings.languageLabel(_queryParams.value.language))
+    val selectedCategoryLabel =
+        MutableStateFlow(ApiMappings.categoryLabel(_queryParams.value.category))
 
     init {
         loadNews()
@@ -78,5 +90,29 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
             // Clear out the article VM
             _articles.value = emptyList()
         }
+    }
+
+    fun onSearchQueryChanged(newQuery: String) {
+        _queryParams.value = _queryParams.value.copy(
+            q = newQuery.ifBlank { null }
+        )
+    }
+
+    fun onCountryChanged(newLabel: String) {
+        val code = ApiMappings.countryCode(newLabel)
+        _queryParams.value = _queryParams.value.copy(country = code)
+        selectedCountryLabel.value = ApiMappings.countryLabel(code)
+    }
+
+    fun onLanguageChanged(newLabel: String) {
+        val code = ApiMappings.languageCode(newLabel)
+        _queryParams.value = _queryParams.value.copy(language = code)
+        selectedLanguageLabel.value = ApiMappings.languageLabel(code)
+    }
+
+    fun onCategoryChanged(newLabel: String) {
+        val code = ApiMappings.categoryCode(newLabel)
+        _queryParams.value = _queryParams.value.copy(category = code)
+        selectedCategoryLabel.value = ApiMappings.categoryLabel(code)
     }
 }

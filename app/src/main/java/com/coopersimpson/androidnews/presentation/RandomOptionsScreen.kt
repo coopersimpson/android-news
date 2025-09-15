@@ -8,39 +8,24 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coopersimpson.androidnews.components.LabeledDropdown
 import com.coopersimpson.androidnews.data.network.ApiMappings
-import com.coopersimpson.androidnews.data.network.QueryParams
 
 @Composable
 fun RandomOptionsScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    onParamsChange: (QueryParams) -> Unit
+    vm: ListNewsScreenViewModel
 ) {
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-    var selectedCountry by rememberSaveable { mutableStateOf(ApiMappings.countryLabels.first()) }
-    var selectedLanguage by rememberSaveable { mutableStateOf(ApiMappings.languageLabels.first()) }
-    var selectedCategory by rememberSaveable { mutableStateOf(ApiMappings.categoryLabels.first()) }
-
-    fun pushParams() = onParamsChange(
-        QueryParams(
-            q = searchQuery.ifBlank { null },
-            language = ApiMappings.languageCode(selectedLanguage),
-            category = ApiMappings.categoryCode(selectedCategory),
-            country = ApiMappings.countryCode(selectedCountry)
-        )
-    )
-
-    LaunchedEffect(Unit) { pushParams() }
+    val queryParams by vm.queryParams.collectAsStateWithLifecycle()
+    val country by vm.selectedCountryLabel.collectAsStateWithLifecycle()
+    val language by vm.selectedLanguageLabel.collectAsStateWithLifecycle()
+    val category by vm.selectedCategoryLabel.collectAsStateWithLifecycle()
 
     LazyColumn(
         modifier = modifier
@@ -52,8 +37,8 @@ fun RandomOptionsScreen(
     ) {
         item {
             OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it; pushParams() },
+                value = queryParams.q ?: "",
+                onValueChange = { vm.onSearchQueryChanged(it) },
                 label = { Text("Search articles") },
             )
         }
@@ -61,24 +46,24 @@ fun RandomOptionsScreen(
             LabeledDropdown(
                 label = "Country",
                 options = ApiMappings.countryLabels,
-                selected = selectedCountry,
-                onSelected = { selectedCountry = it; pushParams() }
+                selected = country,
+                onSelected = { vm.onCountryChanged(it) }
             )
         }
         item {
             LabeledDropdown(
                 label = "Language",
                 options = ApiMappings.languageLabels,
-                selected = selectedLanguage,
-                onSelected = { selectedLanguage = it; pushParams() }
+                selected = language,
+                onSelected = { vm.onLanguageChanged(it) }
             )
         }
         item {
             LabeledDropdown(
                 label = "Category",
                 options = ApiMappings.categoryLabels,
-                selected = selectedCategory,
-                onSelected = { selectedCategory = it; pushParams() }
+                selected = category,
+                onSelected = { vm.onCategoryChanged(it) }
             )
         }
     }
