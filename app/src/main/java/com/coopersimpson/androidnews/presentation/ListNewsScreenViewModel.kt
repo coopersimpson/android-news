@@ -115,4 +115,26 @@ class ListNewsScreenViewModel @Inject constructor(private val repo: ArticleRepos
         _queryParams.value = _queryParams.value.copy(category = code)
         selectedCategoryLabel.value = ApiMappings.categoryLabel(code)
     }
+
+    fun pickRandomQuery() {
+        // Pick random labels for UI
+        val countryLabel = ApiMappings.countryLabels.random()
+        val languageLabel = ApiMappings.languageLabels.random()
+        val categoryLabel = ApiMappings.categoryLabels.random()
+        // Pick random query codes
+        val countryCode = ApiMappings.countryCode(countryLabel)
+        val languageCode = ApiMappings.languageCode(languageLabel)
+        val categoryCode = ApiMappings.categoryCode(categoryLabel)
+
+        // Set query params
+        _queryParams.value = _queryParams.value.copy(
+            country = countryCode,
+            language = languageCode,
+            category = categoryCode
+        )
+        // Set country codes
+        selectedCountryLabel.value = countryLabel
+        selectedLanguageLabel.value = languageLabel
+        selectedCategoryLabel.value = categoryLabel
+    }
 }
