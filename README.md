@@ -1,8 +1,18 @@
 # Android News App
 Simple app that loads 10 articles from an API, user has options to configure different parameters to load additional articles.
 
+<p align="center">
+  <img alt="Light" src="appscreenshots/screenshot1.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="appscreenshots/screenshot2.png" width="45%">
+</p>
+
 ## Architecture overview
 This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) architectural pattern.
+
+<p align="center">
+  <img alt="Light" src="appscreenshots/app_architecture.png" width="80%">
+</p>
 
 ## Libraries used and rationale
 - [Jetpack Compose](https://developer.android.com/compose) with [material3](https://m3.material.io/develop/android/jetpack-compose) components
@@ -10,7 +20,7 @@ This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Mo
   - Used for this app to implement best and modern practice, material3 components provide easy to use and clean interfaces out of the box
 - [Gradle](https://developer.android.com/build/gradle-build-overview)
   - Build tool, transforms our source code into an executable application
-  - Used to build our application, and manage buildVariants and productFlavors. The develop productFlavor in this app includes a button to purge our Room DB cache
+  - Used to build our application, and manage buildVariants and productFlavors. The develop productFlavor in this app includes a button to purge our Room DB cache. Code minification and resource shrinking is configured in the gradle file and proguard file for use in the release buildVariant (uses [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization))
 - [LeakCanary](https://square.github.io/leakcanary/)
   - Memory leak detection library for Android
   - Used in our debug build type to detect any memory leaks in the application
