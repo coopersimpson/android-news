@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <group android:scaleX="1.4"
+      android:scaleY="1.4"
+      android:translateX="-21"
+      android:translateY="-14">
+
+      <!-- Newspaper body -->
+      <path
+          android:fillColor="#FAFAFA"
+          android:pathData="M30,30 H90 V78 H30 Z"/>
+
+      <!-- Newspaper sidebar -->
+      <path
+          android:fillColor="#E0E0E0"
+          android:pathData="M30,30 H42 V78 H30 Z"/>
+
+      <!-- Headline lines -->
+      <path android:fillColor="#E0E0E0" android:pathData="M46,36 H86 V44 H46 Z"/>
+      <path android:fillColor="#E0E0E0" android:pathData="M46,50 H86 V56 H46 Z"/>
+      <path android:fillColor="#E0E0E0" android:pathData="M46,62 H72 V68 H46 Z"/>
+
+      <!-- Small die = 'random' -->
+      <path
+          android:fillColor="#FAFAFA"
+          android:pathData="M18,18 H40 V40 H18 Z"/>
+
+      <!-- Die pips (use background colour to 'cut' into the die) -->
+      <path android:fillColor="#3949AB" android:pathData="M22,22 H25 V25 H22 Z"/>
+      <path android:fillColor="#3949AB" android:pathData="M29,29 H32 V32 H29 Z"/>
+      <path android:fillColor="#3949AB" android:pathData="M36,36 H39 V39 H36 Z"/>
+
+  </group>
+</vector>

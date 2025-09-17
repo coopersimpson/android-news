@@ -1,19 +1,25 @@
 package com.coopersimpson.androidnews.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.coopersimpson.androidnews.R
 import com.coopersimpson.androidnews.components.LabeledDropdown
 import com.coopersimpson.androidnews.data.network.ApiMappings
 
@@ -31,7 +37,7 @@ fun RandomOptionsScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 8.dp),
+            .padding(top = 32.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = contentPadding,
@@ -68,8 +74,20 @@ fun RandomOptionsScreen(
             )
         }
         item {
-            Button(onClick = { vm.pickRandomQuery() }) {
-                Text("I'm feeling lucky!")
+            Image(
+                painter = painterResource(R.drawable.options_image),
+                contentDescription = "App Icon",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(300.dp)
+            )
+        }
+        item {
+            Button(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(width = 200.dp, height = 50.dp),
+                onClick = { vm.pickRandomQuery() }) {
+                Text(text = "I'm feeling lucky!", style = MaterialTheme.typography.bodyLarge)
             }
         }
     }
