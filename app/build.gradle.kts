@@ -19,7 +19,17 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        signingConfig = signingConfigs.getByName("debug")
+        signingConfigs {
+            create("SigningConfig") {
+                val props = Properties().apply {
+                    load(rootProject.file("local.properties").inputStream())
+                }
+                storeFile = file(props.getProperty("storeFile"))
+                storePassword = props.getProperty("storePassword")
+                keyAlias = props.getProperty("keyAlias")
+                keyPassword = props.getProperty("keyPassword")
+            }
+        }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -61,6 +71,7 @@ android {
                 // Define extra rules on top of your project with this file
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("SigningConfig")
         }
     }
 

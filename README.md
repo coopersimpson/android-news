@@ -43,6 +43,7 @@ This app uses the [Model-view-viewmodel (MVVM)](https://en.wikipedia.org/wiki/Mo
 - Sync and build gradle file
 - Visit [newsdata.io](https://newsdata.io/) sign up for free account and get a free API key
 - Add `API_KEY=<YOUR_API_KEY>` to `/local.properties`
+- For signing release builds, add the following lines `storeFile=<KEYSTORE-FILE-PATH>`, `storePassword=<PASSWORD>`, `keyAlias=<KEY-ALIAS>` and `keyPassword=<PASSWORD>` to the `/local.properties` file
 
 ## Resources
 API Endpoint - https://newsdata.io/api/1/latest?apikey=YOUR_API_KEY
